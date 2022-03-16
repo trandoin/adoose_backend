@@ -99,20 +99,20 @@ const verificationMail = async(req,res)=>{
 
         LinkMap.set(link,Email);
 
-        // try{
-        //     await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
-        //     setTimeout(() => {      //Deleting link after 10 minutes.
-        //         LinkMap.delete(link);
-        //     }, 1000*60*10);
-        //     return res.status(200).json({type:"success","message":"Mail Sent Successfully. Verify and login to proceed."});
-        //     console.log("successs");
-        // }catch(err){ 
-        //     return res.status(200).json({type:"failed","message":"err"+err});
-        //     console.log("err",err);
-        // }
+        try{
+            await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
+            setTimeout(() => {      //Deleting link after 10 minutes.
+                LinkMap.delete(link);
+            }, 1000*60*10);
+            return res.status(200).json({type:"success","message":"Mail Sent Successfully. Verify and login to proceed."});
+            console.log("successs");
+        }catch(err){ 
+            return res.status(200).json({type:"failed","message":"err"+err});
+            console.log("err",err);
+        }
    
 
-        return res.status(200).json({type:"success","message":"successfully send."});
+        return res.status(200).json({type:"success","message":"Mail Sent Successfully. Verify and login to proceed."});
     }
 }
 
@@ -138,16 +138,23 @@ const register = async(req,res)=>{
 
 
         if(Email != null && Email.length>0 && Email != undefined){
-            LinkMap.set(link,Email);
-            await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
-            setTimeout(() => {      //Deleting link after 10 minutes.
-                LinkMap.delete(link);
-            }, 1000*60*10);
+            try {
+                LinkMap.set(link,Email);
+                await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
+                setTimeout(() => {      //Deleting link after 10 minutes.
+                    LinkMap.delete(link);
+                }, 1000*60*10);
+                return res.status(200).json({type : "success","message":'Your account is created successfully. Redirecting...',tech : 'Email'});
+                   
+            } catch (error) {
+                return res.status(200).json({type : "failed","message":'erre'+error});
+            }
+          
         }
 
-        if(savedUser.Email)         return res.status(200).json({type : "success","message":'Your account is created successfully. Redirecting...',tech : 'Email'});
-        else if(savedUser.Mobile)   return res.status(200).json({type:"success","message":'Your account is created successfully. Redirecting...',tech:'Mobile'});
-        else                        return res.status(200).json({type:'error',"Message" : "Something bad happened. Still figuring what."});
+        // if(savedUser.Email)         return res.status(200).json({type : "success","message":'Your account is created successfully. Redirecting...',tech : 'Email'});
+        // else if(savedUser.Mobile)   return res.status(200).json({type:"success","message":'Your account is created successfully. Redirecting...',tech:'Mobile'});
+        // else                        return res.status(200).json({type:'error',"Message" : "Something bad happened. Still figuring what."});
     }
 }
 
