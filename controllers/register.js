@@ -144,12 +144,8 @@ const register = async(req,res)=>{
                 setTimeout(() => {      //Deleting link after 10 minutes.
                     LinkMap.delete(link);
                 }, 1000*60*10);
-                if(X == 1){
-                    return res.status(200).json({type : "success","message":'Your account is created successfully. Redirecting...',tech : 'Email'});
-                }else{
+ 
                     return res.status(200).json({type : "failed","message":'err...'+x});
-                }
-
                    
             } catch (error) {
                 return res.status(200).json({type : "failed","message":'erre'+error});
