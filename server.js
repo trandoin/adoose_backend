@@ -48,7 +48,7 @@ app.use(express.urlencoded({extended:true}));                    // Identifies i
 app.use(express.json({limit: '500MB'}));                         // size of the request
 app.use(express.urlencoded({limit: '500MB'}));
 
-// Razorpay Payment
+// Razorpay Payment gh
 
 const razorpay = new Razorpay({
 	key_id: process.env.Razorpay_key_id,
