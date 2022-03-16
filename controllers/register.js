@@ -98,10 +98,17 @@ const verificationMail = async(req,res)=>{
         else if(userExixts.active===true)                       return res.status(200).json({type:'error',message:"this user is already verified. Kindly login."});
 
         LinkMap.set(link,Email);
-        await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
-        setTimeout(() => {      //Deleting link after 10 minutes.
-            LinkMap.delete(link);
-        }, 1000*60*10);
+
+        try{
+            await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
+            setTimeout(() => {      //Deleting link after 10 minutes.
+                LinkMap.delete(link);
+            }, 1000*60*10);
+            console.log("successs");
+        }catch(err){ 
+            console.log("err",err);
+        }
+   
 
         return res.status(200).json({type:"success","message":"Mail Sent Successfully. Verify and login to proceed."});
     }
