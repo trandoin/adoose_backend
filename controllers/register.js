@@ -104,13 +104,15 @@ const verificationMail = async(req,res)=>{
             setTimeout(() => {      //Deleting link after 10 minutes.
                 LinkMap.delete(link);
             }, 1000*60*10);
+            return res.status(200).json({type:"success","message":"Mail Sent Successfully. Verify and login to proceed."});
             console.log("successs");
         }catch(err){ 
+            return res.status(200).json({type:"failed","message":"err"+err});
             console.log("err",err);
         }
    
 
-        return res.status(200).json({type:"success","message":"Mail Sent Successfully. Verify and login to proceed."});
+        // return res.status(200).json({type:"success","message":"Mail Sent Successfully. Verify and login to proceed."});
     }
 }
 
