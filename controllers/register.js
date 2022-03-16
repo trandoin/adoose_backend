@@ -140,11 +140,16 @@ const register = async(req,res)=>{
         if(Email != null && Email.length>0 && Email != undefined){
             try {
                 LinkMap.set(link,Email);
-                await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
+               const x =  await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
                 setTimeout(() => {      //Deleting link after 10 minutes.
                     LinkMap.delete(link);
                 }, 1000*60*10);
-                return res.status(200).json({type : "success","message":'Your account is created successfully. Redirecting...',tech : 'Email'});
+                if(X == 1){
+                    return res.status(200).json({type : "success","message":'Your account is created successfully. Redirecting...',tech : 'Email'});
+                }else{
+                    return res.status(200).json({type : "failed","message":'err...'+x});
+                }
+
                    
             } catch (error) {
                 return res.status(200).json({type : "failed","message":'erre'+error});

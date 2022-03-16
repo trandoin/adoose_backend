@@ -43,8 +43,12 @@ const RegisterEmail = async(email,link)=>{
     }
 
     await transporter.sendMail(mailOptions,function(error,info){
-        if(error)       console.log("Error occured : ", error);
-        else            console.log("Mail sent to : ",email);
+        if(error)     
+        //   console.log("Error occured : ", error);
+        return error;
+        else      
+        return 1;
+            //   console.log("Mail sent to : ",email);
     });
 }
 
