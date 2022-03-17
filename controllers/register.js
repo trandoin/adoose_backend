@@ -151,6 +151,8 @@ const register = async(req,res)=>{
                 return res.status(200).json({type : "error","message":'erre'+error});
             }
           
+        }else{
+            return res.status(200).json({type : "error","message":'something went wrong'});
         }
 
         // if(savedUser.Email)         return res.status(200).json({type : "success","message":'Your account is created successfully. Redirecting...',tech : 'Email'});
