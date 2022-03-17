@@ -127,33 +127,36 @@ const register = async(req,res)=>{
 
     if(existingUser!=null && existingUser!= undefined)      return res.status(200).json({type : "error", 'message':'User Already Exists. Kindly login or use another Email/mobile number to register'});
     else{
+
+
         
-        const hashPassword = await hashFunctions.hashing(Password);
-        console.log(hashPassword);
-        const savedUser = await User.create({Email:Email,Mobile:Mobile,Password:hashPassword,Name:Name});
-        console.log(savedUser);
+        return res.status(200).json({type : "error","message":'something went wrong'});
+        // const hashPassword = await hashFunctions.hashing(Password);
+        // console.log(hashPassword);
+        // const savedUser = await User.create({Email:Email,Mobile:Mobile,Password:hashPassword,Name:Name});
+        // console.log(savedUser);
 
-        let link = await randomstring.generate();
-        while(LinkMap.get(link)!=undefined)       link = await randomstring.generate();
+        // let link = await randomstring.generate();
+        // while(LinkMap.get(link)!=undefined)       link = await randomstring.generate();
 
 
-        if(Email != null && Email.length>0 && Email != undefined){
-            try {
-                LinkMap.set(link,Email);
-               const x =  await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
-                setTimeout(() => {      //Deleting link after 10 minutes.
-                    LinkMap.delete(link);
-                }, 1000*60*10);
+        // if(Email != null && Email.length>0 && Email != undefined){
+        //     try {
+        //         LinkMap.set(link,Email);
+        //        const x =  await MailServer.RegisterEmail(Email,process.env.WebsiteURL+link);
+        //         setTimeout(() => {      //Deleting link after 10 minutes.
+        //             LinkMap.delete(link);
+        //         }, 1000*60*10);
  
-                    return res.status(200).json({type : "error","message":'err...'+x});
+        //             return res.status(200).json({type : "error","message":'err...'+x});
                    
-            } catch (error) {
-                return res.status(200).json({type : "error","message":'erre'+error});
-            }
+        //     } catch (error) {
+        //         return res.status(200).json({type : "error","message":'erre'+error});
+        //     }
           
-        }else{
-            return res.status(200).json({type : "error","message":'something went wrong'});
-        }
+        // }else{
+        //     return res.status(200).json({type : "error","message":'something went wrong'});
+        // }
 
         // if(savedUser.Email)         return res.status(200).json({type : "success","message":'Your account is created successfully. Redirecting...',tech : 'Email'});
         // else if(savedUser.Mobile)   return res.status(200).json({type:"success","message":'Your account is created successfully. Redirecting...',tech:'Mobile'});
