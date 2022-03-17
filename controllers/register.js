@@ -145,10 +145,10 @@ const register = async(req,res)=>{
                     LinkMap.delete(link);
                 }, 1000*60*10);
  
-                    return res.status(200).json({type : "failed","message":'err...'+x});
+                    return res.status(200).json({type : "error","message":'err...'+x});
                    
             } catch (error) {
-                return res.status(200).json({type : "failed","message":'erre'+error});
+                return res.status(200).json({type : "error","message":'erre'+error});
             }
           
         }
