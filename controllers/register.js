@@ -120,13 +120,13 @@ const register = async(req,res)=>{
     
     const {Name,Email,Mobile,Password} = req.body;
     
-    console.log(Name,Email,Password,Mobile);
-    let existingUser = null;
-    if(Email!=null && Email.length>0)           existingUser = await User.findOne({Email:Email});
-    else if(Mobile!=null && Mobile.length>0)    existingUser = await User.findOne({Mobile : Mobile});
+    // console.log(Name,Email,Password,Mobile);
+    // let existingUser = null;
+    // if(Email!=null && Email.length>0)           existingUser = await User.findOne({Email:Email});
+    // else if(Mobile!=null && Mobile.length>0)    existingUser = await User.findOne({Mobile : Mobile});
 
-    if(existingUser!=null && existingUser!= undefined)      return res.status(200).json({type : "error", 'message':'User Already Exists. Kindly login or use another Email/mobile number to register'});
-    else{
+    // if(existingUser!=null && existingUser!= undefined)      return res.status(200).json({type : "error", 'message':'User Already Exists. Kindly login or use another Email/mobile number to register'});
+    // else{
 
 
         
@@ -161,7 +161,7 @@ const register = async(req,res)=>{
         // if(savedUser.Email)         return res.status(200).json({type : "success","message":'Your account is created successfully. Redirecting...',tech : 'Email'});
         // else if(savedUser.Mobile)   return res.status(200).json({type:"success","message":'Your account is created successfully. Redirecting...',tech:'Mobile'});
         // else                        return res.status(200).json({type:'error',"Message" : "Something bad happened. Still figuring what."});
-    }
+    // }
 }
 
 module.exports = {register,verification,verificationMail,forgetPassword,forgetMail,checkLinkValidityVerification,checkLinkValidityForget};
